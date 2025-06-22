@@ -1,12 +1,11 @@
 package com.example.springBoot2.controllers;
 
-import com.example.springBoot2.models.Book;
 import com.example.springBoot2.models.Movie;
-import com.example.springBoot2.repositories.BookRepository;
 import com.example.springBoot2.repositories.MovieRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movies")
@@ -22,9 +21,9 @@ public class MovieController {
         return movieRepository.findAll();
     }
 
-    @GetMapping("/id")
-    public Movie getItem(@PathVariable int id) {
-        return movieRepository.findById(id).orElse(null);
+    @GetMapping("/{id}")
+    public Optional<Movie> getItem(@PathVariable int id) {
+        return movieRepository.findById(id);
     }
 
     @PostMapping
@@ -32,13 +31,13 @@ public class MovieController {
         return movieRepository.save(movie);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public Movie updateItem(@PathVariable int id, @RequestBody Movie movie) {
         movie.setId(id);
         return movieRepository.save(movie);
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public void deleteItem(@PathVariable int id) {
         movieRepository.deleteById(id);
     }

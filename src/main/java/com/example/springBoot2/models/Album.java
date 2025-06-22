@@ -20,7 +20,7 @@ public class Album {
     public Album() {
     }
 
-    public Album(String name, String artist, int year, int tracks) {
+    public Album( int id, String name, String artist, int year, int tracks) {
         this.name = name;
         this.year = year;
         this.artist = artist;

@@ -1,11 +1,11 @@
 package com.example.springBoot2.controllers;
 
 import com.example.springBoot2.models.Album;
-import com.example.springBoot2.models.Book;
 import com.example.springBoot2.repositories.AlbumRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/albums")
@@ -21,9 +21,9 @@ public class AlbumController {
         return albumRepository.findAll();
     }
 
-    @GetMapping("/id")
-    public Album getItem(@PathVariable int id) {
-        return albumRepository.findById(id).orElse(null);
+    @GetMapping("/{id}")
+    public Optional<Album> getItem(@PathVariable int id) {
+        return albumRepository.findById(id);
     }
 
     @PostMapping
@@ -31,13 +31,13 @@ public class AlbumController {
         return albumRepository.save(album);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public Album updateItem(@PathVariable int id, @RequestBody Album album) {
         album.setId(id);
         return albumRepository.save(album);
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public void deleteItem(@PathVariable int id) {
         albumRepository.deleteById(id);
     }

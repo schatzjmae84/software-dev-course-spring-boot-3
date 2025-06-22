@@ -5,6 +5,7 @@ import com.example.springBoot2.repositories.BookRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
@@ -20,9 +21,9 @@ public class BookController {
          return bookRepository.findAll();
     }
 
-    @GetMapping("/id")
-    public Book getItem(@PathVariable int id) {
-        return bookRepository.findById(id).orElse(null);
+    @GetMapping("/{id}")
+    public Optional<Book> getItem(@PathVariable int id) {
+        return bookRepository.findById(id);
     }
 
     @PostMapping
@@ -30,14 +31,14 @@ public class BookController {
         return bookRepository.save(book);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public Book updateItem(@PathVariable int id, @RequestBody Book book) {
         book.setId(id);
         return bookRepository.save(book);
     }
 
-    @DeleteMapping("/id")
-    public void deleteItem(@PathVariable(value = "id") int id) {
+    @DeleteMapping("/{id}")
+    public void deleteItem(@PathVariable int id) {
         bookRepository.deleteById(id);
     }
 }
